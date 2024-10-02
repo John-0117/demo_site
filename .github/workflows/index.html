@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サポート詐欺デモサイト - あなたのPCは危険にさらされています！</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* カスタムモーダルのスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            background-color: #f00;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 各モーダルの位置指定 */
+        #modal1 {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        #modal2 {
+            bottom: 30px;
+            right: 150px;
+        }
+
+        #modal3 {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        #modal4 {
+            top: 10px;
+            right: 10px;
+        }
+
+        /* ポップアップのスタイル */
+        .popup {
+            position: absolute;
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10000; /* モーダルの下にならないようにする */
+        }
+    </style>
+    <script>
+        let countdown = 60; // 60秒からカウントダウン開始
+        let scanCompleted = false; // スキャン完了のフラグ
+        let modalInterval; // モーダル表示のインターバルID
+
+        // カスタムモーダルを表示する
+        function showModal(modalId) {
+            let modal = document.getElementById(modalId);
+            modal.style.display = "block";
+        }
+
+        // 残り時間を表示するタイマー機能
+        function startTimer() {
+            let timerElement = document.getElementById("timer");
+            let interval = setInterval(function() {
+                if (countdown > 0) {
+                    timerElement.innerText = countdown + "秒以内にサポートに連絡してください！";
+                    countdown--;
+                } else {
+                    clearInterval(interval);
+                    clearInterval(modalInterval); // タイマーが切れたらモーダル表示も停止
+                    // タイマーが0になったらブルースクリーン表示
+                    triggerSystemError();
+                }
+            }, 1000); // 1秒ごとにカウントダウン
+        }
+
+        // 3秒ごとにモーダルを表示する機能
+        function startModal() {
+            modalInterval = setInterval(function() {
+                showModal("modal1"); // 右下
+                setTimeout(function() {
+                    showModal("modal2"); // 少し左下に重なる
+                }, 500);
+
+                setTimeout(function() {
+                    showModal("modal3"); // 左下
+                }, 1000);
+
+                setTimeout(function() {
+                    showModal("modal4"); // 右上
+                }, 1500);
+                setTimeout(function() {
+                    showModal("modal5"); // 左上
+                }, 2000);
+                
+            }, 3000); // 3秒ごとにモーダルを表示
+        }
+
+        // モーダルを閉じる処理
+        function closeModal(modalId) {
+            let modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+
+        // ポップアップメッセージを表示する
+        function showMultiplePopups() {
+            const positions = [
+                 { top: '10%', right: '10%' },
+                { top: '50%', left: '10%' }, { top: '50%', right: '10%' },
+                { bottom: '10%', left: '10%' }, { bottom: '10%', right: '10%' },
+                { top: '30%', left: '40%' }, { top: '70%', right: '40%' }
+            ];
+
+            for (let i = 0; i < 8; i++) {
+                let popup = document.createElement('div');
+                popup.classList.add('popup');
+                popup.innerText = "ウイルスが検出されました！";
+                document.body.appendChild(popup);
+
+                // ポップアップの位置を設定
+                popup.style.top = positions[i % positions.length].top;
+                popup.style.left = positions[i % positions.length].left || 'auto';
+                popup.style.right = positions[i % positions.length].right || 'auto';
+
+                // アニメーション開始
+                animatePopup(popup);
+            }
+        }
+
+        // ポップアップの縮小・拡大アニメーション
+        function animatePopup(popup) {
+            let scale = 1;
+            let growing = true;
+            let interval = setInterval(function() {
+                if (countdown === 0) {
+                    clearInterval(interval);
+                    popup.remove();
+                } else {
+                    if (growing) {
+                        scale += 0.05;
+                        if (scale >= 1.3) growing = false;
+                    } else {
+                        scale -= 0.05;
+                        if (scale <= 1) growing = true;
+                    }
+                    popup.style.transform = `scale(${scale})`;
+                }
+            }, 100);
+        }
+
+        // 進行バーの動作（JavaScriptで動的に進行バーの幅を変更）
+        function startScanProgress() {
+            let progress = document.querySelector('.progress');
+            let width = 0;
+            let interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    if (!scanCompleted) {
+                        scanCompleted = true;
+                        showMultiplePopups(); // スキャンが終了したらポップアップを表示
+                    }
+                } else {
+                    width++;
+                    progress.style.width = width + '%';
+                }
+            }, 100); // 0.1秒ごとに進行
+        }
+
+        // システムエラーを模倣したブルースクリーン風の演出
+        function triggerSystemError() {
+            document.body.innerHTML = `
+                <div class="blue-screen">
+                    <h1>:(</h1>
+                    <p>コンピュータに問題が発生しました。</p>
+                    <p>停止コード: CRITICAL_PROCESS_DIED</p>
+                    <p>電話番号0120-345-6789</p>
+                    <div class="scrolling-message">
+                        <p><strong>個人情報が盗まれています。今すぐサポートセンターにお電話ください。</strong></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // フルスクリーン化を強制する関数
+        function requestFullScreen() {
+            let elem = document.documentElement;  // ドキュメント全体をフルスクリーン化
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { // Firefox
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { // IE/Edge
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // ページが読み込まれたら初期化処理
+        window.onload = function() {
+            requestFullScreen();  // ページ読み込み時にフルスクリーンをリクエスト
+            startScanProgress();  // ウイルススキャンの進行バーの開始
+            startTimer();         // タイマーの開始
+            startModal();         // モーダルを開始
+        };
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1><strong>!!!!!!!!!!システム警告!!!!!!!!!!</strong></h1>
+    </div>
+
+    <div class="content">
+        <!-- タイマー表示 -->
+        <div id="timer" class="timer-box">
+            <span id="countdown"></span> 秒以内にサポートに連絡してください！
+        </div>
+
+        <!-- 偽のウイルススキャンアニメーション -->
+        <div class="scan-box">
+            <h2>ウイルススキャン中...</h2>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <p>ウイルス検出中...</p>
+        </div>
+
+        <!-- 偽のエラーメッセージ -->
+        <div class="warning-box">
+            <h2>お使いのコンピュータが、トロイの木馬スパイウェアに感染しています。</h2>
+            <p>あなたのコンピュータはウイルスに感染しており、すぐに修正が必要です。</p>
+            <p class="phone-number">サポートセンターに今すぐ連絡し、この脅威を解決してください。: <strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- カスタムモーダル -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <p>スキャン終了。</p>
+            
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <p>トロイの木馬に感染しています</p>
+           
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <p>トロイの木馬に感染しています。</p>
+           
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <p>個人情報が盗まれています。今すぐサポートセンターにお電話ください。</p>
+            
+        </div>
+    </div>
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <hedder>サポート詐欺体験サイト 10月18日 サイバー教室</hedder>
+            <body>
+                <p>・サポート詐欺は、偽の警告画面を表示してユーザーを焦らせ電話</p>
+                <p>  をかけさせて、偽のサポートを行って金銭を要求する手口です。</p>
+                <p><strong>表示されている電話番号に電話をかけてはいけません</strong></p>
+                <p><strong>対策</strong></p>
+                <p>「ESC」キーを2,3秒長押しして右上の×を押す。</p>
+                </body>
+
+            <button class="modal-button" onclick="closeModal('modal5')">閉じる</button>
+        </div>
+    </div>
+    
+        </div>
+    </div>
+</body>
+</html>
