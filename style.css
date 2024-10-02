@@ -1,0 +1,170 @@
+/* 全体の背景とフォント */
+body {
+        margin: 0;
+        padding: 20px; /* ページとボーダーの間に余白を作る */
+        border: 20px solid transparent;
+        background-origin: border-box;
+        background-image: linear-gradient(45deg, black 25%, yellow 25%, yellow 50%, black 50%, black 75%, yellow 75%);
+        background-size: 20px 20px; /* 縞模様のサイズ */
+        background-color: white;
+    
+}
+/* ページ内のコンテンツ全体の背景を白に設定 */
+.content {
+    background-color: white; /* 枠内のバックグラウンドカラーを白に設定 */
+    padding: 20px;
+    border-radius: 10px; /* 少し角を丸めてデザイン性を向上 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 影を付けて立体感を演出 */
+}
+/* ヘッダーのスタイル */
+.header {
+    color: white;
+    background-color: white;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 50px;
+    color:crimson;
+}
+
+/* タイマー表示 */
+.timer-box {
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.timer-box span {
+    color: red; /* 数字部分のみ赤 */
+}
+
+/* 警告メッセージボックスのスタイル */
+.warning-box {
+    border: 5px solid red;
+    background-color: #ffe6e6;
+    margin: 40px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.warning-box h2 {
+    color: red;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.warning-box p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.phone-number strong {
+    color: red;
+    font-size: 22px;
+}
+
+#contact-support {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#contact-support:hover {
+    background-color: darkred;
+}
+
+/* 偽のウイルススキャンボックス */
+.scan-box {
+    border: 3px solid #333;
+    background-color: #f4f4f4;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.scan-box h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* スキャンの進行バー */
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+    height: 20px;
+    margin: 10px 0;
+}
+
+.progress {
+    background-color: blue;
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* ポップアップメッセージ */
+.popup {
+    position: fixed;
+    background-color: white;
+    color: red;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transform: scale(1);
+    transition: transform 0.1s ease-in-out;
+}
+
+/* ブルースクリーン風のエラー */
+.blue-screen {
+    background-color: #169bcb;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+    height: 100vh;
+}
+
+.blue-screen h1 {
+    font-size: 100px;
+    margin: 0;
+}
+
+.blue-screen p {
+    font-size: 24px;
+}
+.scrolling-message {
+    white-space: nowrap; /* テキストが折り返されないように */
+    overflow: hidden; /* オーバーフローを隠す */
+    position: relative; /* 相対位置を指定 */
+    width: 300%; /* 幅を100%に */
+    animation: scroll 15s linear infinite; /* アニメーションを指定 */
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%); /* 初期位置を右外に */
+    }
+    100% {
+        transform: translateX(-100%); /* 最終位置を左外に */
+    }
+}
+#modal5 {
+    top: 10px;
+    left: 10px;
+}
