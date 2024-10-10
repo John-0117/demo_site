@@ -87,9 +87,17 @@
                 } else {
                     clearInterval(interval);
                     clearInterval(modalInterval); // タイマーが切れたらモーダル表示も停止
+                    stopSiren();  // タイマーが0になったら音声を停止
                     triggerSystemError(); // タイマーが0になったらブルースクリーン表示
                 }
             }, 1000); // 1秒ごとにカウントダウン
+        }
+
+        // 警告音を停止する関数
+        function stopSiren() {
+            const siren = document.getElementById("siren");
+            siren.pause();
+            siren.currentTime = 0; // 再生位置をリセット
         }
 
         // 3秒ごとにモーダルを表示する機能
