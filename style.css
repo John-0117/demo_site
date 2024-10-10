@@ -1,14 +1,14 @@
 /* 全体の背景とフォント */
 body {
-        margin: 0;
-        padding: 20px; /* ページとボーダーの間に余白を作る */
-        border: 20px solid transparent;
-        background-origin: border-box;
-        background-image: linear-gradient(45deg, black 25%, yellow 25%, yellow 50%, black 50%, black 75%, yellow 75%);
-        background-size: 20px 20px; /* 縞模様のサイズ */
-        background-color: white;
-    
+    margin: 0;
+    padding: 20px; /* ページとボーダーの間に余白を作る */
+    border: 20px solid transparent;
+    background-origin: border-box;
+    background-image: linear-gradient(45deg, black 25%, yellow 25%, yellow 50%, black 50%, black 75%, yellow 75%);
+    background-size: 20px 20px; /* 縞模様のサイズ */
+    background-color: white;
 }
+
 /* ページ内のコンテンツ全体の背景を白に設定 */
 .content {
     background-color: white; /* 枠内のバックグラウンドカラーを白に設定 */
@@ -16,6 +16,7 @@ body {
     border-radius: 10px; /* 少し角を丸めてデザイン性を向上 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 影を付けて立体感を演出 */
 }
+
 /* ヘッダーのスタイル */
 .header {
     color: white;
@@ -147,24 +148,4 @@ body {
 
 .blue-screen p {
     font-size: 24px;
-}
-.scrolling-message {
-    white-space: nowrap; /* テキストが折り返されないように */
-    overflow: hidden; /* オーバーフローを隠す */
-    position: relative; /* 相対位置を指定 */
-    width: 300%; /* 幅を100%に */
-    animation: scroll 15s linear infinite; /* アニメーションを指定 */
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(100%); /* 初期位置を右外に */
-    }
-    100% {
-        transform: translateX(-100%); /* 最終位置を左外に */
-    }
-}
-#modal5 {
-    top: 10px;
-    left: 10px;
 }
