@@ -37,18 +37,23 @@
         }
 
         #modal2 {
-            bottom: 30px;
-            right: 150px;
+            bottom: 100px;
+            right: 70px;
         }
 
         #modal3 {
-            bottom: 10px;
+            bottom: 50px;
             left: 10px;
         }
 
         #modal4 {
-            top: 10px;
+            top: 150px;
             right: 10px;
+        }
+
+        #modal5 {
+            top: 10px;
+            left: 10px;
         }
 
         /* ポップアップのスタイル */
@@ -58,7 +63,7 @@
             color: white;
             padding: 10px;
             border-radius: 5px;
-            z-index: 10000; /* モーダルの下にならないようにする */
+            z-index: 10000;
         }
     </style>
     <script>
@@ -82,8 +87,7 @@
                 } else {
                     clearInterval(interval);
                     clearInterval(modalInterval); // タイマーが切れたらモーダル表示も停止
-                    // タイマーが0になったらブルースクリーン表示
-                    triggerSystemError();
+                    triggerSystemError(); // タイマーが0になったらブルースクリーン表示
                 }
             }, 1000); // 1秒ごとにカウントダウン
         }
@@ -120,9 +124,9 @@
         function showMultiplePopups() {
             const positions = [
                  { top: '10%', right: '10%' },
-                { top: '50%', left: '10%' }, { top: '50%', right: '10%' },
+                { top: '60%', left: '5%' }, { top: '60%', right: '5%' },
                 { bottom: '10%', left: '10%' }, { bottom: '10%', right: '10%' },
-                { top: '30%', left: '40%' }, { top: '70%', right: '40%' }
+                { top: '30%', left: '40%' }, { top: '50%', right: '40%' }
             ];
 
             for (let i = 0; i < 8; i++) {
@@ -182,15 +186,18 @@
 
         // システムエラーを模倣したブルースクリーン風の演出
         function triggerSystemError() {
+            // ページ全体の背景を青にして模様を消す
+            document.body.style.backgroundImage = "none";
+            document.body.style.backgroundColor = "#169bcb";
+            document.body.style.border = "none";
+
             document.body.innerHTML = `
                 <div class="blue-screen">
                     <h1>:(</h1>
                     <p>コンピュータに問題が発生しました。</p>
                     <p>停止コード: CRITICAL_PROCESS_DIED</p>
-                    <p>電話番号0120-345-6789</p>
-                    <div class="scrolling-message">
-                        <p><strong>個人情報が盗まれています。今すぐサポートセンターにお電話ください。</strong></p>
-                    </div>
+                    <p>この問題を解決するにはサポートセンターにご連絡ください。</p>
+                    <p>電話番号:0120-xxx-xx89</p>
                 </div>
             `;
         }
@@ -219,6 +226,8 @@
     </script>
 </head>
 <body>
+    <audio id="siren" src="warning2.mp3" autoplay loop></audio> <!-- 音声ファイルの読み込み -->
+    
     <div class="header">
         <h1><strong>!!!!!!!!!!システム警告!!!!!!!!!!</strong></h1>
     </div>
@@ -242,54 +251,48 @@
         <div class="warning-box">
             <h2>お使いのコンピュータが、トロイの木馬スパイウェアに感染しています。</h2>
             <p>あなたのコンピュータはウイルスに感染しており、すぐに修正が必要です。</p>
-            <p class="phone-number">サポートセンターに今すぐ連絡し、この脅威を解決してください。: <strong>
-            </p>
+            <p class="phone-number">サポートセンターに今すぐ連絡し、この脅威を解決してください。: <strong>0120-xxx-xx89</strong></p>
         </div>
     </div>
 
     <!-- カスタムモーダル -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <p>スキャン終了。</p>
-            
+            <p><strong>スキャン終了。</strong></p>
         </div>
     </div>
 
     <div id="modal2" class="modal">
         <div class="modal-content">
-            <p>トロイの木馬に感染しています</p>
-           
+            <p><strong>トロイの木馬に感染しています</strong></p>
         </div>
     </div>
 
     <div id="modal3" class="modal">
         <div class="modal-content">
-            <p>トロイの木馬に感染しています。</p>
-           
+            <p><strong>トロイの木馬に感染しています。</strong></p>
         </div>
     </div>
 
     <div id="modal4" class="modal">
         <div class="modal-content">
-            <p>個人情報が盗まれています。今すぐサポートセンターにお電話ください。</p>
-            
+            <p><strong>個人情報が盗まれています。今すぐサポートセンターにお電話ください。</strong></p>
+            <p><strong>電話番号:0120-xxx-xx89</strong></p>
         </div>
     </div>
+
     <div id="modal5" class="modal">
         <div class="modal-content">
-            <hedder>サポート詐欺体験サイト 10月18日 サイバー教室</hedder>
+            <header><p>サポート詐欺体験サイト</p>
+                <p>10月18日 サイバー教室</p>
+            </header>
             <body>
-                <p>・サポート詐欺は、偽の警告画面を表示してユーザーを焦らせ電話</p>
-                <p>  をかけさせて、偽のサポートを行って金銭を要求する手口です。</p>
-                <p><strong>表示されている電話番号に電話をかけてはいけません</strong></p>
-                <p><strong>対策</strong></p>
-                <p>「ESC」キーを2,3秒長押しして右上の×を押す。</p>
-                </body>
+                <p>・サポート詐欺は、偽の警告画面を表示してユーザーを焦らせ電話をかけさせて、偽のサポートを行って金銭を要求する手口です。</p>
+                <p><strong>・表示されている電話番号に電話をかけてはいけません</strong></p>
+                
+            </body>
 
             <button class="modal-button" onclick="closeModal('modal5')">閉じる</button>
-        </div>
-    </div>
-    
         </div>
     </div>
 </body>
